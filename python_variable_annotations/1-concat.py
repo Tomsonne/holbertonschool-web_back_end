@@ -2,6 +2,6 @@
 """bip bip"""
 
 
-def add(a: str, b: str) -> str:
+def concat(a: str, b: str) -> str:
     """bip bip"""
     return a + b

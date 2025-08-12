@@ -55,7 +55,8 @@ class Server:
         current = index
 
         if not indexed:
-            return {"index": index, "data": [], "page_size": 0, "next_index": index}
+            return {"index": index, "data": [], "page_size": 0,
+                    "next_index": index}
 
         max_pos = max(indexed.keys())
 

@@ -1,8 +1,8 @@
- #!/usr/bin/env python3
+#!/usr/bin/env python3
 """
-bip
-bip
+bip bip
 """
+
 
 import csv
 import math
@@ -11,8 +11,7 @@ from typing import List, Tuple
 
 def index_range(page: int, page_size: int) -> Tuple[int, int]:
     """
-        bip
-        bip
+    bip bip
     """
     start = (page - 1) * page_size
     end = page * page_size
@@ -21,8 +20,7 @@ def index_range(page: int, page_size: int) -> Tuple[int, int]:
 
 class Server:
     """
-    bip
-    bip
+    bip bip
     """
     DATA_FILE = "Popular_Baby_Names.csv"
 
@@ -31,8 +29,7 @@ class Server:
 
     def dataset(self) -> List[List]:
         """
-        bip
-        bip
+        bip bip
         """
         if self.__dataset is None:
             with open(self.DATA_FILE) as f:
@@ -44,8 +41,7 @@ class Server:
 
     def get_page(self, page: int = 1, page_size: int = 10) -> List[List]:
         """
-        bip
-        bip
+        bip bip
         """
         assert isinstance(page, int) and page > 0
         assert isinstance(page_size, int) and page_size > 0

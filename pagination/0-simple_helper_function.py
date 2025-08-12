@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 """
-    bip
-    bip
+bip bip
 """
 
 

@@ -1,1 +1,2 @@
 //bip bip
+db.school.deleteMany({ name: "Holberton school" });

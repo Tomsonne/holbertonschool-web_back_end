@@ -3,10 +3,10 @@
 export default class HolbertonCourse {
   constructor(code, name) {
     if (typeof code !== 'string') {
-      throw new TypeError('code must be a string');
+      throw new TypeError('Code must be a string');
     }
     if (typeof name !== 'string') {
-      throw new TypeError('name must be a string');
+      throw new TypeError('Name must be a string');
     }
 
     this._code = code;
@@ -34,8 +34,5 @@ export default class HolbertonCourse {
         }
         this._name = value;
     }
-
-    
-
   }
 

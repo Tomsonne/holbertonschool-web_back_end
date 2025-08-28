@@ -1,0 +1,17 @@
+{
+  "name": "es6_promise",
+  "version": "1.0.0",
+  "description": "not",
+  "main": "0-main.js",
+  "scripts": {
+    "dev": "npx babel-node"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@babel/core": "^7.28.3",
+    "@babel/node": "^7.28.0",
+    "@babel/preset-env": "^7.28.3"
+  }
+}

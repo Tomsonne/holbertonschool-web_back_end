@@ -1,3 +1,9 @@
-import handleProfileSignup from './6-final-user';
+import signUpUser from './4-user-promise.js';
+import uploadPhoto from './5-photo-reject.js';
 
-console.log(handleProfileSignup("Bob", "Dylan", "bob_dylan.jpg"));
+export default function handleProfileSignup(firstName, lastName, fileName) {
+  return Promise.allSettled([
+    signUpUser(firstName, lastName),
+    uploadPhoto(fileName),
+  ]);
+}

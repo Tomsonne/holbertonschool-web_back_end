@@ -1,17 +1,21 @@
 {
-  "name": "es6_promise",
-  "version": "1.0.0",
-  "description": "not",
-  "main": "0-main.js",
   "scripts": {
-    "dev": "npx babel-node"
+    "lint": "./node_modules/.bin/eslint",
+    "check-lint": "lint [0-9]*.js",
+    "dev": "npx babel-node",
+    "test": "jest",
+    "full-test": "./node_modules/.bin/eslint [0-9]*.js && jest"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
   "devDependencies": {
+    "@babel/cli": "^7.28.3",
     "@babel/core": "^7.28.3",
-    "@babel/node": "^7.28.0",
-    "@babel/preset-env": "^7.28.3"
+    "@babel/node": "^7.8.0",
+    "@babel/preset-env": "^7.28.3",
+    "babel-jest": "^30.1.1",
+    "eslint": "^6.8.0",
+    "eslint-config-airbnb-base": "^14.0.0",
+    "eslint-plugin-import": "^2.18.2",
+    "eslint-plugin-jest": "^22.17.0",
+    "jest": "^24.9.0"
   }
 }

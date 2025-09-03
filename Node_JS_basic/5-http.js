@@ -2,7 +2,7 @@ const http = require('http');
 const countStudents = require('./3-read_file_async');
 const fs = require('fs');
 
-const DB_FILE = process.argv[2]; // nom du fichier passé en argument
+const DB_FILE = process.argv[2];
 
 const app = http.createServer((req, res) => {
   res.statusCode = 200;

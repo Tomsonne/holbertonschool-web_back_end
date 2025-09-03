@@ -15,7 +15,6 @@ const app = http.createServer((req, res) => {
 
     countStudents(DB_FILE)
       .then(() => {
-        // countStudents affiche déjà sur la console
         fs.readFile(DB_FILE, 'utf8', (err, data) => {
           if (err) {
             res.end('Cannot load the database');

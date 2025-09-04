@@ -1,6 +1,6 @@
 const http = require('http');
-const countStudents = require('./3-read_file_async');
 const fs = require('fs');
+const countStudents = require('./3-read_file_async');
 
 const DB_FILE = process.argv[2];
 
@@ -41,7 +41,7 @@ const app = http.createServer((req, res) => {
 
           for (const [field, list] of Object.entries(fields)) {
             res.write(
-              `Number of students in ${field}: ${list.length}. List: ${list.join(', ')}\n`
+              `Number of students in ${field}: ${list.length}. List: ${list.join(', ')}\n`,
             );
           }
 

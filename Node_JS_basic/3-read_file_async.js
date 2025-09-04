@@ -28,7 +28,7 @@ function countStudents(path) {
 
       for (const [field, list] of Object.entries(fields)) {
         console.log(
-          `Number of students in ${field}: ${list.length}. List: ${list.join(', ')}`
+          `Number of students in ${field}: ${list.length}. List: ${list.join(', ')}`,
         );
       }
 

@@ -1,87 +1,66 @@
-import express from 'express';
-import { promises as fs } from 'fs';
+const express = require('express');
+const fs = require('fs').promises;
 
-export const app = express();
+const app = express();
+const PORT = 1245;
 
-async function readDatabase(filePath) {
+async function loadStudents(dbFile) {
   try {
-    const raw = await fs.readFile(filePath, 'utf-8');
-    const lines = raw
-      .split('\n')
-      .map((l) => l.trim())
-      .filter((l) => l.length > 0);
+    const fileContent = await fs.readFile(dbFile, 'utf8');
+    const rows = fileContent.trim().split('\n');
+    const headers = rows[0].split(',');
 
-    if (lines.length <= 1) {
-      return { total: 0, byField: {} };
+    const studentList = [];
+
+    for (let i = 1; i < rows.length; i += 1) {
+      const values = rows[i].split(',');
+      const student = {};
+      headers.forEach((header, index) => {
+        student[header] = values[index];
+      });
+      studentList.push(student);
     }
 
-    const header = lines[0].split(',');
-    const idxFirst = header.indexOf('firstname') !== -1 ? header.indexOf('firstname')
-                    : header.indexOf('firstName') !== -1 ? header.indexOf('firstName')
-                    : 0;
-    const idxField  = header.indexOf('field') !== -1 ? header.indexOf('field') : header.length - 1;
+    let output = `Number of students: ${studentList.length}\n`;
 
-    const byField = {};
-    let total = 0;
+    const csList = studentList.filter((stud) => stud.field === 'CS');
+    const csNames = csList.map((stud) => stud.firstname);
+    output += `Number of students in CS: ${csList.length}. List: ${csNames.join(', ')}\n`;
 
-    for (let i = 1; i < lines.length; i += 1) {
-      const row = lines[i].split(',');
-      if (row.length < Math.max(idxFirst, idxField) + 1) continue;
+    const sweList = studentList.filter((stud) => stud.field === 'SWE');
+    const sweNames = sweList.map((stud) => stud.firstname);
+    output += `Number of students in SWE: ${sweList.length}. List: ${sweNames.join(', ')}`;
 
-      const firstName = row[idxFirst]?.trim();
-      const field = row[idxField]?.trim();
-
-      if (!firstName || !field) continue;
-
-      if (!byField[field]) byField[field] = [];
-      byField[field].push(firstName);
-      total += 1;
-    }
-
-    return { total, byField };
+    return output;
   } catch (err) {
-    const e = new Error('Cannot load the database');
-    e.cause = err;
-    throw e;
+    throw new Error('Cannot load the database');
   }
 }
 
-app.get('/', (_req, res) => {
-  res.type('text/plain').send('Hello Holberton School!');
-});
-
-app.get('/students', async (req, res) => {
+app.get('/', (_, res) => {
   res.type('text/plain');
+  res.status(200).send('Hello Holberton School!');
+});
 
-  const dbPath = process.argv[2];
-  const header = 'This is the list of our students';
-
-  if (!dbPath) {
-    res.send(`${header}\nCannot load the database`);
-    return;
-    }
-
+app.get('/students', async (_, res) => {
+  const introMsg = 'This is the list of our students\n';
   try {
-    const { total, byField } = await readDatabase(dbPath);
-
-    const lines = [`${header}`, `Number of students: ${total}`];
-
-    const fields = Object.keys(byField).sort();
-
-    fields.forEach((f) => {
-      const list = byField[f] || [];
-      lines.push(`Number of students in ${f}: ${list.length}. List: ${list.join(', ')}`);
-    });
-
-    res.send(lines.join('\n'));
+    const result = await loadStudents('database.csv');
+    res.type('text/plain');
+    res.status(200).send(`${introMsg}${result}`);
   } catch (err) {
-    res.send(`${header}\nCannot load the database`);
+    res.type('text/plain');
+    res.status(200).send(introMsg + err.message);
   }
 });
 
-if (process.argv[1] && process.argv[1].includes('7-http_express.js')) {
-  const PORT = 1245;
-  app.listen(PORT, () => {});
-}
+app.use((_, res) => {
+  res.type('text/plain');
+  res.status(404).send('Not Found');
+});
 
-export default app;
+app.listen(PORT, () => {
+  console.log(`Server running at http://127.0.0.1:${PORT}`);
+});
+
+module.exports = app;
